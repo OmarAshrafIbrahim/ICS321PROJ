@@ -1,0 +1,24 @@
+{
+  "name": "dcompoany",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000I\u0000C\u0000S\u00003\u00002\u00001\u0000P\u0000R\u0000O\u0000J\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaudYM/ICS321PROJ.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaudYM/ICS321PROJ/issues"
+  },
+  "homepage": "https://github.com/SaudYM/ICS321PROJ#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nunjucks": "^3.2.3",
+    "sqlite3": "^5.1.4"
+  }
+}
