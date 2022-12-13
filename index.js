@@ -53,7 +53,13 @@ app.get("/Employee", async (req, res) => {
     res.render(path.join(__dirname + '/view/Employee.html'));
 });
 
-app.post('/', function (req, res) {
+app.post('/Addpackage', function (req, res) {
+
+    
+
+    Model.addPackage(req.body.PNUMBER, 
+        
+        )
     res.render(path.join(__dirname + '/view/admin.html'));
 });
 app.listen(port, function () {
