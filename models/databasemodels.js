@@ -7,4 +7,39 @@ const getDbConnection = async () => {
         driver: sqlite3.Database
     })
 };
-// const db = await getDbConnection();
+async function addPackage(PNUMBER, Reciver_name, Type, status, destination, status) {
+    const db = await getDbConnection();
+    const sql = `insert into Package('PNUMBER', 'destination', 'Type','status','Reciver_name') values (?,?,?,?,?,?)`;
+
+    db.run(sql, [PNUMBER, Reciver_name, Type, status, destination, status], function (error) {
+        if (error) {
+            console.error(error.message);
+        }
+        console.log(`Inserted a row with the PNUMBER: ${PNUMBER}`);
+    }
+    );
+    await sql.finalize()
+    await db.close();
+};
+async function addShippedPackage(diaminsions, wight, finaldeliverydate, PNUMBER, price) {
+    const db = await getDbConnection();
+    const insurance_amount1 = price * .80;
+    const sql = `insert into Shipped_Package( wight,insurance_amount,diaminsions, finaldeliverydate, PNUMBER) values (?,?,?,?,?)`;
+
+    db.run(sql, [wight, insurance_amount1, diaminsions, finaldeliverydate, PNUMBER], function (error) {
+        if (error) {
+            console.error(error.message);
+        }
+        console.log(`Inserted a shipped row with the PNUMBER: ${PNUMBER}`);
+    }
+    );
+    await sql.finalize()
+    await db.close();
+};
+
+
+module.exports = {
+    addPackage,
+    addShippedPackage,
+
+};

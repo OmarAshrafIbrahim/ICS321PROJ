@@ -7,8 +7,8 @@ const app = express();
 const port = 8000;
 
 nunjucks.configure("view", { express: app });
-app.use(express.static("public"));
 app.use(express.json());
+app.use(express.static("public"))
 
 app.get("/", async (req, res) => {
     res.render(path.join(__dirname + '/view/main.html'));
@@ -53,7 +53,10 @@ app.get("/Employee", async (req, res) => {
     res.render(path.join(__dirname + '/view/Employee.html'));
 });
 
-
+app.post('/', function (req, res) {
+    res.render(path.join(__dirname + '/view/admin.html'));
+});
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);
+
 });
