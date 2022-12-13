@@ -23,19 +23,19 @@ app.get("/Addpackage", async (req, res) => {
     res.render(path.join(__dirname + '/view/Add package.html'));
 });
 
-app.get("/Employee", async (req, res) => {
+app.get("/Admin", async (req, res) => {
 
-    res.render(path.join(__dirname + '/view/Employee.html'));
+    res.render(path.join(__dirname + '/view/admin.html'));
 });
 
-app.get("/Employee", async (req, res) => {
+app.get("/Ship", async (req, res) => {
 
-    res.render(path.join(__dirname + '/view/Employee.html'));
+    res.render(path.join(__dirname + '/view/Ship.html'));
 });
 
-app.get("/Employee", async (req, res) => {
+app.get("/adduser", async (req, res) => {
 
-    res.render(path.join(__dirname + '/view/Employee.html'));
+    res.render(path.join(__dirname + '/view/adduser.html'));
 });
 
 app.get("/Employee", async (req, res) => {

@@ -7,3 +7,4 @@ const getDbConnection = async () => {
         driver: sqlite3.Database
     })
 };
+// const db = await getDbConnection();
