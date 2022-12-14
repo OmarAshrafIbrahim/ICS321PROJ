@@ -10,12 +10,9 @@ async function postpackage() {
         body: JSON.stringify({
             PNUMBER, Reciver_name, Type, status, destination, status
         }),
-
-
     });
-    console.log(res);
     return await res.json();
 };
-const btn = document.getElementsByName("btn1");
-console.log(btn.innerHTML)
-btn.addEventListener("click", postpackage);
+
+const btn = document.getElementById("addbtn")
+btn.addEventListener('click', postpackage);
