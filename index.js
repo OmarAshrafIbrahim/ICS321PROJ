@@ -98,10 +98,32 @@ app.get("/tracebackpackage", async (req, res) => {
 });
 
 app.post('/addpackage', (req, res) => {
-    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    try {
+        Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+        res.redirect('/admin')
+
+    } catch (error) {
+        console.log(error)
+        res.redirect('/admin')
+    }
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
-})
+});
+app.post('/removepackage', (req, res) => {
+    Model.RemovePackage(req.body.PNUMBER)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/Editpackage', (req, res) => {
+    Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/adduser', (req, res) => {
+    Model.addUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);
 });
