@@ -34,19 +34,24 @@ async function RemovePackage(PNUMBER) {
     await db.close();
 };
 async function addShippedPackage(diaminsions, wight, finaldeliverydate, PNUMBER, price) {
+
     const db = await getDbConnection();
     const insurance_amount1 = price * .80;
     const sql = `insert into Shipped_Package( wight,insurance_amount,diaminsions, finaldeliverydate, PNUMBER) values (?,?,?,?,?)`;
-
-    db.run(sql, [wight, insurance_amount1, diaminsions, finaldeliverydate, PNUMBER], function (error) {
-        if (error) {
-            console.error(error.message);
+    try {
+        db.run(sql, [wight, insurance_amount1, diaminsions, finaldeliverydate, PNUMBER], function (error) {
+            if (error) {
+                console.error(error.message);
+            }
+            console.log(`Inserted a shipped row with the PNUMBER: ${PNUMBER}`);
         }
-        console.log(`Inserted a shipped row with the PNUMBER: ${PNUMBER}`);
+        );
+        await sql.finalize()
+        await db.close();
     }
-    );
-    await sql.finalize()
-    await db.close();
+    catch (error) {
+        console.log(error)
+    }
 };
 
 async function EditPackage(PNUMBER, Reciver_name, Type, status, destination) {
@@ -75,8 +80,16 @@ async function addUser(ID, Goverment_ID, Name) {
     );
     await db.close();
 };
+async function Getconfomedpaymnts(PNUMBER) {
+    const db = await getDbConnection();
+    const sql = `select DISTINCT PNUMBER from package WHERE status = 'Deliverd'`;
+    const rows = await db.all(sql);
+    await db.close();
+    return rows;
+};
+
 module.exports = {
     addPackage,
-    addShippedPackage, RemovePackage, EditPackage, addUser
+    addShippedPackage, RemovePackage, EditPackage, addUser, Getconfomedpaymnts
 
 };

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getpayemnts</title>
+</head>
+<body>
+    <h1>Payments that have been confirmed and completed</h1>
+    <form action="/confomerdPaymnts" method="post">
+        <div>
+            <button>Show packages</button>
+        </div>
+    </form>
+    <h1>Package numbers that have been payed: </h1>
+    <div> {% for detail in arr %}
+            <li>
+              {{detail.PNUMBER}}
+            </li>
+            {% endfor %}
+    </div>
+</body>
+</html>
