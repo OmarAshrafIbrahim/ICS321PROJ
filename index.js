@@ -98,14 +98,8 @@ app.get("/tracebackpackage", async (req, res) => {
 });
 
 app.post('/addpackage', (req, res) => {
-    try {
-        Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
-        res.redirect('/admin')
 
-    } catch (error) {
-        console.log(error)
-        res.redirect('/admin')
-    }
+    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
 });
