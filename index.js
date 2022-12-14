@@ -5,7 +5,7 @@ const Model = require("./models/databasemodels")
 
 const app = express();
 const port = 8000;
-
+app.use(express.urlencoded({ extended: true }))
 nunjucks.configure("view", { express: app });
 app.use(express.static("public"));
 app.use(express.json());
@@ -97,8 +97,8 @@ app.get("/tracebackpackage", async (req, res) => {
     res.render(path.join(__dirname + '/view/traceback package.html'));
 });
 
-app.post('/addpackage', async (req, res) => {
-    console.log(req.params)
+app.post('/addpackage', (req, res) => {
+    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
 })
