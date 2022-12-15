@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Types</title>
+</head>
+<body>
+    <h1>Get package types between two dates</h1>
+    <form action="/type2dates" method="post">
+        Enter The first date: <input type="date" name="date1" id="date1"> <br>
+        Enter The second date: <input type="date" name="date2" id="date2"> <br>
+        <button>Search </button>
+    </form>
+    <table style="width:100%">
+        <tr>
+            <th>Regular: </th>
+            <td>{{arr1[0]}}</td>
+        </tr>
+        <tr>
+            <th>Fragile: </th>
+     
+            <td>{{arr1[1]}}</td>
+        
+        </tr>
+        <tr>
+            <th>Liquid: </th>
+    
+            <td>{{arr1[2]}}</td>
+           
+        </tr>
+        <tr>
+            <th>Chemical: </th>
+           
+            <td>{{arr1[3]}}</td>
+           
+        </tr>
+</body>
+</html>

@@ -19,9 +19,7 @@ app.get("/admin/getpays", async (req, res) => {
 app.get("/admin/pkg2dates", async (req, res) => {
     res.render(path.join(__dirname + '/view/pkg2dates.html'));
 });
-app.get("/admin/tyb2dates", async (req, res) => {
-    res.render(path.join(__dirname + '/view/tyb2dates.html'));
-});
+
 app.get("/admin/track", async (req, res) => {
     res.render(path.join(__dirname + '/view/track.html'));
 });
@@ -73,10 +71,10 @@ app.get("/Removepackage", async (req, res) => {
     res.render(path.join(__dirname + '/view/Remove package.html'));
 });
 
-app.get("/Editpackage", async (req, res) => {
+// app.get("/Editpackage", async (req, res) => {
 
-    res.render(path.join(__dirname + '/view/Edit package.html'));
-});
+//     res.render(path.join(__dirname + '/view/Edit package.html'));
+// });
 
 app.get("/admin/Adduser", async (req, res) => {
 
@@ -129,8 +127,7 @@ app.get("/tracebackpackage", async (req, res) => {
 
 
 app.post('/addpackage', (req, res) => {
-
-    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination);
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
 });
@@ -139,10 +136,31 @@ app.post('/removepackage', (req, res) => {
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
 });
-app.post('/Editpackage', (req, res) => {
+app.get('/Editpackage', async (req, res) => {
+
+    // Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    // res.redirect('/admin')
+    res.render(path.join(__dirname + '/view/edit package.html'));
+});
+app.post('/Editpackage', async (req, res) => {
+    const resu = await Model.findPackage(req.body.PNUMBER);
+    console.log(resu)
+    if (resu.length != 0) {
+        res.render(path.join(__dirname + '/view/editpackage2.html'), { resu });
+    } else {
+        res.redirect('/admin')
+    }
+});
+app.get('/Editpackage2', async (req, res) => {
+    // const resu = await Model.findPackage(req.body.PNUMBER);
+    Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.render(path.join(__dirname + '/view/editpackage2.html'));
+
+});
+app.post('/Editpackage2', async (req, res) => {
+    // const resu = await Model.findPackage(req.body.PNUMBER);
     Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
     res.redirect('/admin')
-    // res.render(path.join(__dirname + '/view/admin.html'));
 });
 app.post('/adduser', (req, res) => {
     Model.addUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
@@ -157,6 +175,20 @@ app.post('/pkg2dates', async (req, res) => {
     const arr = await Model.Getpkg2dates(req.body.date1, req.body.date2)
     res.render(path.join(__dirname + '/view/pkg2dates.html'), { arr });
 });
+app.get("/admin/tyb2dates", async (req, res) => {
+    res.render(path.join(__dirname + '/view/typeof2dates.html'));
+});
+app.post('/type2dates', async (req, res) => {
+    const arr1 = await Model.Getpkgtyps(req.body.date1, req.body.date2)
+    res.render(path.join(__dirname + '/view/typeof2dates.html'), { arr1 });
+});
+app.post('/tracepkgd', async (req, res) => {
+    const arr2 = await Model.Getpkg2dates(req.body.categories, req.body.status, req.body.destination)
+    // console.log(arr)
+    res.render(path.join(__dirname + '/view/track.html'), { arr2 });
+    // res.render(path.join(__dirname + '/view/typeof2dates.html'), { arr1 });
+});
+
 app.post('/removeUser', (req, res) => {
     Model.RemoveUser(req.body.ID)
     res.redirect('/admin')
