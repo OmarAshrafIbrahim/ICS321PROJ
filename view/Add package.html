@@ -8,6 +8,13 @@
 </head>
 <body>
 <h1>Add package page</h1>
+<form action="/addpackage" method="POST">
+  Enter Package number <input type="text" id="PNUMBER" name="PNUMBER" required> <br>
+  Enter Reciver_name <input type="text" id="Reciver_name" name="Reciver_name" required><br>
+  Enter Type <input type="text" id="Type" name="Type" required><br>
+  Enter status <input type="text" id="Status" name="Status" required><br>
+  Enter destination <input type="text" id="destination" name="destination" required><br>
+  <button> add </button>
 <form action="/" method="post">
   <div>
   Enter Package number <input type="text" id="PNUMBER"> <br>
@@ -21,5 +28,7 @@
   <!-- <a href="packeged">Ship</a> -->
   </div>
 </form>
+<!-- <script src="/Script.js"></script> -->
 </body>
+
 </html>

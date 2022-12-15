@@ -5,7 +5,7 @@ const Model = require("./models/databasemodels")
 
 const app = express();
 const port = 8000;
-
+app.use(express.urlencoded({ extended: true }))
 nunjucks.configure("view", { express: app });
 app.use(express.static("public"));
 app.use(express.json());
@@ -17,6 +17,10 @@ app.get("/", async (req, res) => {
 app.get("/Employee", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/Employee.html'));
+});
+app.get("/Customer", async (req, res) => {
+
+    res.render(path.join(__dirname + '/view/Customer.html'));
 });
 app.get("/Customer", async (req, res) => {
 
@@ -97,7 +101,27 @@ app.get("/tracebackpackage", async (req, res) => {
     res.render(path.join(__dirname + '/view/traceback package.html'));
 });
 
+app.post('/addpackage', (req, res) => {
 
+    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/removepackage', (req, res) => {
+    Model.RemovePackage(req.body.PNUMBER)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/Editpackage', (req, res) => {
+    Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/adduser', (req, res) => {
+    Model.addUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);
 });

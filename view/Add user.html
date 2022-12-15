@@ -8,14 +8,12 @@
 </head>
 <body>
 <h1> Add User </h1>
-<form action="/" method="post">
+<form action="/adduser" method="post">
   <div>
-  Enter The user name  <input type="text" id="Name"> <br>
-  Enter the Goverment ID <input type="text" id=" Goverment_ID"><br>
-  Enter Type <input type="text" id="Type"><br>
-  
-  <input type="submit" value="add">
-  <!-- <a href="packeged">Ship</a> -->
+  Enter The user ID  <input type="text" id="ID" name="ID" required> <br>
+  Enter the Goverment ID <input type="text" id=" Goverment_ID" name="Goverment_ID" required><br>
+  Enter Name <input type="text" id="Type" name="Name" required><br>
+  <button>Add user</button>
   </div>
 </form>
 </body>
