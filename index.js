@@ -13,7 +13,21 @@ app.use(express.json());
 app.get("/", async (req, res) => {
     res.render(path.join(__dirname + '/view/main.html'));
 });
-
+app.get("/admin/getpays", async (req, res) => {
+    res.render(path.join(__dirname + '/view/getpays.html'));
+});
+app.get("/admin/pkg2dates", async (req, res) => {
+    res.render(path.join(__dirname + '/view/pkg2dates.html'));
+});
+app.get("/admin/tyb2dates", async (req, res) => {
+    res.render(path.join(__dirname + '/view/tyb2dates.html'));
+});
+app.get("/admin/track", async (req, res) => {
+    res.render(path.join(__dirname + '/view/track.html'));
+});
+app.get("/admin/pkginfobycus", async (req, res) => {
+    res.render(path.join(__dirname + '/view/pkginfobycus.html'));
+});
 app.get("/Employee", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/Employee.html'));
@@ -126,6 +140,14 @@ app.post('/adduser', (req, res) => {
     Model.addUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post("/confomerdPaymnts", async (req, res) => {
+    const arr = await Model.Getconfomedpaymnts(req.body.PNUMBER)
+    res.render(path.join(__dirname + '/view/getpays.html'), { arr });
+});
+app.post('/pkg2dates', async (req, res) => {
+    const arr = await Model.Getpkg2dates(req.body.date1, req.body.date2)
+    res.render(path.join(__dirname + '/view/pkg2dates.html'), { arr });
 });
 app.post('/removeUser', (req, res) => {
     Model.RemoveUser(req.body.ID)
