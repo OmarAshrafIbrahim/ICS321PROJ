@@ -16,15 +16,15 @@ async function addPackage(PNUMBER, Reciver_name, Type, status, destination) {
     today = yyyy + '-' + mm + '-' + dd;
     const db = await getDbConnection();
     const sql = `insert into Package('PNUMBER', 'destination', 'Type','status','receiver__name','datein') values (?,?,?,?,?,?)`;
-
-    db.run(sql, [PNUMBER, Reciver_name, Type, status, destination, today], function (error) {
-        if (error) {
-            console.error(error.message);
-        }
-        console.log(`Inserted a row with the PNUMBER: ${PNUMBER}`);
+    try {
+        db.run(sql, [PNUMBER, Reciver_name, Type, status, destination, today]
+        );
+        await db.close();
     }
-    );
-    await db.close();
+    catch (error) {
+        alert("error")
+        console.log(error)
+    }
 };
 async function RemovePackage(PNUMBER) {
     const db = await getDbConnection();
@@ -63,15 +63,26 @@ async function addShippedPackage(diaminsions, wight, finaldeliverydate, PNUMBER,
 async function EditPackage(PNUMBER, Reciver_name, Type, status, destination) {
     const db = await getDbConnection();
     const sql = `update Package SET destination = ? ,Type= ?, status = ? ,receiver__name = ? where PNUMBER = ?`;
-
-    db.run(sql, [Reciver_name, Type, status, destination, PNUMBER], function (error) {
-        if (error) {
-            console.error(error.message);
-        }
-        console.log(`Inserted a row with the PNUMBER: ${PNUMBER}`);
+    try {
+        db.run(sql, [Reciver_name, Type, status, destination, PNUMBER]);
+        await db.close();
     }
-    );
-    await db.close();
+    catch (error) {
+        console.log(error)
+    }
+};
+async function findPackage(PNUMBER) {
+    const db = await getDbConnection();
+    const sql = `select PNUMBER from Package where PNUMBER = ?`;
+    try {
+        const res = await db.all(sql, [PNUMBER]);
+        await db.close();
+        return res;
+    }
+    catch (error) {
+        console.log(error)
+    }
+    return res;
 };
 async function addUser(ID, Goverment_ID, Name) {
     const db = await getDbConnection();
@@ -101,10 +112,33 @@ async function Getpkg2dates(date1, date2) {
     await db.close();
     return rows;
 };
+async function Getpkgtyps(date1, date2) {
+    const db = await getDbConnection();
+    const sql = `select PNUMBER from package WHERE Type = 'Regular' AND datein between ? AND ? `;
+    const sql2 = `select PNUMBER from package WHERE Type = 'Fragile' AND datein between ? AND ? `;
+    const sql3 = `select PNUMBER from package WHERE Type = 'Liquid' AND datein between ? AND ?`;
+    const sql4 = `select PNUMBER from package WHERE Type = 'Chemical'  AND datein between ? AND ?`;
+    const count1 = await db.all(sql, date1, date2);
+    const count2 = await db.all(sql2, date1, date2);
+    const count3 = await db.all(sql3, date1, date2);
+    const count4 = await db.all(sql4, date1, date2);
+    const array = [count1, count2, count3, count4];
+    const truearray = [array[0].length, array[1].length, array[2].length, array[3].length]
+    await db.close();
+    return truearray;
+};
 
-
+async function Gettrack3(categories, Status, destination) {
+    const db = await getDbConnection();
+    const sql = `select * from Package WHERE Type = ? and status= ? and destination = ?  `;
+    const rows = await db.all(sql, [categories, Status, destination]);
+    await db.close();
+    console.log(rows)
+    return rows;
+};
 module.exports = {
     addPackage,
-    addShippedPackage, RemovePackage, EditPackage, addUser, Getconfomedpaymnts, Getpkg2dates
-
+    addShippedPackage, RemovePackage,
+    EditPackage, addUser, Getconfomedpaymnts, Getpkg2dates, Getpkgtyps
+    , Gettrack3, findPackage
 };

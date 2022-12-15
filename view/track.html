@@ -7,6 +7,77 @@
     <title>Document</title>
 </head>
 <body>
+    <!DOCTYPE html>
+    <html>
     
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
+        </head>
+    
+        <body>
+    
+            <h2>Select</h2>
+            <form action="/tracepkgd" method="post">
+            <div>
+                categories: <select name="categories" id="language">
+                    <option name="Regular">Regular</option>
+                    <option name="Fragile">Fragile</option>
+                    <option name="Liquid">Liquid</option>
+                    <option name="Chemical">Chemical</option>
+                </select>
+        status:  <select name="status" id="language">
+                <option name="in transit">in transit</option>
+                <option name="delivered">delivered</option>
+                <option name="lost">lost</option>
+                <option name="damaged">damaged</option>
+            </select>
+                Enter destination <input type="text" id="destination" name="destination" required> <br>
+            </div>
+            <button>Submit</button>
+            </form>
+    <table style="width:100%">
+        <tr>
+            <th>PNUMBER: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.PNUMBER}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>destination: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.destination}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Type: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.Type}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>status: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.status}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>receiver__name: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.receiver__name}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>date: </th>
+            {% for detail in arr2 %}
+            <td>{{detail.datein}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+        </body>
+    
+    </html>
+
 </body>
 </html>
