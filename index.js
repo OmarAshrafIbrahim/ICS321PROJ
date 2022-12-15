@@ -134,8 +134,11 @@ app.post('/adduser', (req, res) => {
 });
 app.post("/confomerdPaymnts", async (req, res) => {
     const arr = await Model.Getconfomedpaymnts(req.body.PNUMBER)
-    console.log(arr)
     res.render(path.join(__dirname + '/view/getpays.html'), { arr });
+});
+app.post('/pkg2dates', async (req, res) => {
+    const arr = await Model.Getpkg2dates(req.body.date1, req.body.date2)
+    res.render(path.join(__dirname + '/view/pkg2dates.html'), { arr });
 });
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);

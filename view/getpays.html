@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +14,7 @@
     <title>getpayemnts</title>
 </head>
 <body>
+    
     <h1>Payments that have been confirmed and completed</h1>
     <form action="/confomerdPaymnts" method="post">
         <div>
@@ -14,11 +22,45 @@
         </div>
     </form>
     <h1>Package numbers that have been payed: </h1>
-    <div> {% for detail in arr %}
-            <li>
-              {{detail.PNUMBER}}
-            </li>
+    <table style="width:100%">
+        <tr>
+            <th>PNUMBER: </th>
+            {% for detail in arr %}
+            <td>{{detail.PNUMBER}}</td>
             {% endfor %}
-    </div>
+        </tr>
+        <tr>
+            <th>destination: </th>
+            {% for detail in arr %}
+            <td>{{detail.destination}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Type: </th>
+            {% for detail in arr %}
+            <td>{{detail.Type}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>status: </th>
+            {% for detail in arr %}
+            <td>{{detail.status}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>receiver__name: </th>
+            {% for detail in arr %}
+            <td>{{detail.receiver__name}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>date: </th>
+            {% for detail in arr %}
+            <td>{{detail.datein}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+
+   
 </body>
 </html>

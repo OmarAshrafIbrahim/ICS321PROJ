@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Get package between two dates </title>
 </head>
 <body>
-    
+    <h1>Get package between two dates</h1>
+    <form action="/pkg2dates" method="post">
+       Enter The first date:  <input type="date" name="date1" id="date1"> <br>
+        Enter The second date: <input type="date" name="date2" id="date2"> <br>
+        <button>Search </button>
+    </form>
+    <table style="width:100%">
+        <tr>
+            <th>PNUMBER: </th>
+            {% for detail in arr %}
+            <td>{{detail.PNUMBER}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>destination: </th>
+            {% for detail in arr %}
+            <td>{{detail.destination}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Type: </th>
+            {% for detail in arr %}
+            <td>{{detail.Type}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>status: </th>
+            {% for detail in arr %}
+            <td>{{detail.status}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>receiver__name: </th>
+            {% for detail in arr %}
+            <td>{{detail.receiver__name}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>date: </th>
+            {% for detail in arr %}
+            <td>{{detail.datein}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+
 </body>
 </html>

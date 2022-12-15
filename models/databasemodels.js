@@ -8,10 +8,16 @@ const getDbConnection = async () => {
     })
 };
 async function addPackage(PNUMBER, Reciver_name, Type, status, destination) {
-    const db = await getDbConnection();
-    const sql = `insert into Package('PNUMBER', 'destination', 'Type','status','receiver__name') values (?,?,?,?,?)`;
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
-    db.run(sql, [PNUMBER, Reciver_name, Type, status, destination], function (error) {
+    today = yyyy + '-' + mm + '-' + dd;
+    const db = await getDbConnection();
+    const sql = `insert into Package('PNUMBER', 'destination', 'Type','status','receiver__name','datein') values (?,?,?,?,?,?)`;
+
+    db.run(sql, [PNUMBER, Reciver_name, Type, status, destination, today], function (error) {
         if (error) {
             console.error(error.message);
         }
@@ -80,16 +86,25 @@ async function addUser(ID, Goverment_ID, Name) {
     );
     await db.close();
 };
-async function Getconfomedpaymnts(PNUMBER) {
+async function Getconfomedpaymnts() {
     const db = await getDbConnection();
-    const sql = `select DISTINCT PNUMBER from package WHERE status = 'Deliverd'`;
+    const sql = `select * from package WHERE status = 'Deliverd' `;
     const rows = await db.all(sql);
     await db.close();
     return rows;
 };
+async function Getpkg2dates(date1, date2) {
+    const db = await getDbConnection();
+    console.log(date1, date2)
+    const sql = `select * from package WHERE datein between ? AND ? `;
+    const rows = await db.all(sql, date1, date2);
+    await db.close();
+    return rows;
+};
+
 
 module.exports = {
     addPackage,
-    addShippedPackage, RemovePackage, EditPackage, addUser, Getconfomedpaymnts
+    addShippedPackage, RemovePackage, EditPackage, addUser, Getconfomedpaymnts, Getpkg2dates
 
 };
