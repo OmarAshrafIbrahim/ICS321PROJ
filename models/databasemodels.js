@@ -43,7 +43,7 @@ async function addShippedPackage(diaminsions, wight, finaldeliverydate, PNUMBER,
 
     const db = await getDbConnection();
     const insurance_amount1 = price * .80;
-    const sql = `insert into Shipped_Package( wight,insurance_amount,diaminsions, finaldeliverydate, PNUMBER) values (?,?,?,?,?)`;
+    const sql = `insert into Shipped_Package( weight,insurance_amount,dimensions, final_delivery_date, PNUMBER) values (?,?,?,?,?)`;
     try {
         db.run(sql, [wight, insurance_amount1, diaminsions, finaldeliverydate, PNUMBER], function (error) {
             if (error) {
@@ -86,22 +86,6 @@ async function addUser(ID, Goverment_ID, Name) {
     );
     await db.close();
 };
-async function Getconfomedpaymnts() {
-    const db = await getDbConnection();
-    const sql = `select * from package WHERE status = 'Deliverd' `;
-    const rows = await db.all(sql);
-    await db.close();
-    return rows;
-};
-async function Getpkg2dates(date1, date2) {
-    const db = await getDbConnection();
-    console.log(date1, date2)
-    const sql = `select * from package WHERE datein between ? AND ? `;
-    const rows = await db.all(sql, date1, date2);
-    await db.close();
-    return rows;
-};
-
 
 async function RemoveUser (ID) {
     const db = await getDbConnection();
@@ -143,8 +127,27 @@ async function  FindUser (ID) {
     await db.close();
     return result;
 };
-module.exports = {
-    addPackage,
-    addShippedPackage, RemovePackage, EditPackage, addUser
 
+async function Getconfomedpaymnts() {
+    const db = await getDbConnection();
+    const sql = `select * from package WHERE status = 'Deliverd' `;
+    const rows = await db.all(sql);
+    await db.close();
+    return rows;
 };
+async function Getpkg2dates(date1, date2) {
+    const db = await getDbConnection();
+    console.log(date1, date2)
+    const sql = `select * from package WHERE datein between ? AND ? `;
+    const rows = await db.all(sql, date1, date2);
+    await db.close();
+    return rows;
+};
+module.exports = {
+    addPackage,EditUser,FindUser,Getconfomedpaymnts, Getpkg2dates,
+    addShippedPackage, RemovePackage, EditPackage, addUser,RemoveUser
+};
+
+
+
+

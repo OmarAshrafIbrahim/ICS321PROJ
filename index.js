@@ -49,10 +49,18 @@ app.get("/Admin", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/admin.html'));
 });
+app.get("/checkpakege", async (req, res) => {
+
+    res.render(path.join(__dirname + '/view/check pakege.html'));
+});
 
 app.get("/Ship", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/Ship.html'));
+});
+app.get("/addShipedPackage", async (req, res) => {
+
+    res.render(path.join(__dirname + '/view/Add Shiped_package.html'));
 });
 
 app.get("/admin/Removeuser", async (req, res) => {
@@ -169,6 +177,14 @@ app.post('/FindUser',async(req, res) => {
     // // res.render(path.join(__dirname + '/view/admin.html'));
     res.render(path.join(__dirname + '/view/Edit user.html'), { arr });
 });
+app.post('/addshipedpackage', (req, res) => {
+    console.log(req.body)
+    Model.addPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    Model.addShippedPackage(req.body.PNUMBER, req.body.wight, req.body.finaldeliverydate, req.body.diaminsions, req.body.price)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);
 });
