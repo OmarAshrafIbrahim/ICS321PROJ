@@ -8,5 +8,21 @@
 </head>
 <body>
 <h1>Traceback page</h1>
+<form action="/trace" method="POST">
+  Enter Package number <input type="text" id="PNUMBER" name="PNUMBER" required> <br>
+  <button> trace </button>
+  
+</form>
+<table style="width:100%">
+  <tr>
+    <th>PNUMBER: </th>
+    <td>{{array[0]}}</td>
+ 
+  </tr>
+  <tr>
+    <th>location: </th>
+    <td>{{array[1][0].Location}}</td>
+</table>
+
 </body>
 </html>

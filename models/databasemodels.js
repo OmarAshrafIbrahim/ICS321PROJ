@@ -136,10 +136,49 @@ async function Gettrack3(categories, Status, destination) {
     console.log(rows)
     return rows;
 };
+async function login(username, password) {
+    const db = await getDbConnection();
+    const sql = `select type from Person WHERE username = ? AND password = ? `;
+    const count1 = await db.all(sql, username, password);
+    return (count1)
 
+};
+async function signup(Username, password, Goverment_ID, Name) {
+
+    const db = await getDbConnection();
+    const ID = Goverment_ID + '3';
+    const type = 'customer'
+    const sql = `insert into Person(ID, Name, Goverment_ID, type, username, password) values (?,?,?,?,?,?)`;
+    try {
+        db.run(sql, [ID, Name, Goverment_ID, type, Username, password], function (error) {
+            if (error) {
+                console.error(error.message);
+            }
+            console.log(`Inserted a shipped row with the PNUMBER: ${PNUMBER}`);
+        }
+        );
+        await db.close();
+    }
+    catch (error) {
+        console.log(error)
+    }
+};
+async function trace(PNUMBER) {
+    const db = await getDbConnection();
+    const sql = `select location from Package_Location WHERE PNUMBER = ? `;
+    try {
+        const rows = await db.all(sql, [PNUMBER]);
+        await db.close();
+        const array = [PNUMBER, rows]
+        return array
+    }
+    catch (error) {
+        console.log(error)
+    }
+};
 module.exports = {
     addPackage,
     addShippedPackage, RemovePackage,
     EditPackage, addUser, Getconfomedpaymnts, Getpkg2dates, Getpkgtyps
-    , Gettrack3, findPackage
+    , Gettrack3, findPackage, login, signup, trace
 };

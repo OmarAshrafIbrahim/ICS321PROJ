@@ -11,7 +11,33 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-    res.render(path.join(__dirname + '/view/main.html'));
+    res.render(path.join(__dirname + '/view/LorS.html'));
+});
+app.get("/login", async (req, res) => {
+    res.render(path.join(__dirname + '/view/LOGIN.html'));
+});
+app.get("/signup", async (req, res) => {
+    res.render(path.join(__dirname + '/view/signup.html'));
+});
+app.post("/login", async (req, res) => {
+    const result = await Model.login(req.body.username, req.body.password);
+
+    if (result[0].type === 'admin') {
+        res.render(path.join(__dirname + '/view/admin.html'));
+    } else if (result[0].type === 'customer') {
+        res.render(path.join(__dirname + '/view/Customer.html'));
+    } else if (result[0].type === 'employee') {
+        res.render(path.join(__dirname + '/view/Employee.html'));
+    }
+    else {
+        res.render(path.join(__dirname + '/view/signup.html'));
+    }
+});
+app.post("/reg", async (req, res) => {
+    Model.signup(req.body.Username, req.body.psw, req.body.GovermentID,
+        req.body.Name);
+    res.render(path.join(__dirname + '/view/LorS.html'));
+
 });
 app.get("/admin/getpays", async (req, res) => {
     res.render(path.join(__dirname + '/view/getpays.html'));
@@ -107,6 +133,11 @@ app.get("/dopayment", async (req, res) => {
 app.get("/tracebackpackage", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/traceback package.html'));
+});
+app.post("/trace", async (req, res) => {
+    const array = await Model.trace(req.body.PNUMBER)
+    console.log(array)
+    res.render(path.join(__dirname + '/view/traceback package.html'), { array });
 });
 
 app.post('/addpackage', (req, res) => {
