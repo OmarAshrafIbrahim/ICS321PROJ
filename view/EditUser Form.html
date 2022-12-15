@@ -7,13 +7,13 @@
     <title>Edite User </title>
 </head>
 <body>
-    <h1> editing the information of user using the user ID  : </h1>
-    <form action="/editUser" method="post">
+    <h1> editing the information of user using the user ID  : {{resu[0].ID}} </h1>
+    <form action="/editUser2" method="post">
         <div>
-        User ID  <input type="text" id="ID" name="ID" value = {{arr.ID}} readonly > <br>
-        Edit the Goverment ID <input type="text" id=" Goverment_ID" name="Goverment_ID" required><br>
+        User ID  <input type="text" id="ID" name="ID" value = {{resu[0].ID}} readonly > <br>
+        Edit the Goverment ID <input type="number" id=" Goverment_ID" name="Goverment_ID" required><br>
         Edit User Name <input type="text" id="Type" name="Name" required><br>
-        <button>Submit</button>
+        <button>Edit</button>
         </div>
       </form>
     

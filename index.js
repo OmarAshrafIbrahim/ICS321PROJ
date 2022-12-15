@@ -157,9 +157,21 @@ app.get('/Editpackage2', async (req, res) => {
     res.render(path.join(__dirname + '/view/editpackage2.html'));
 
 });
+app.get('/editUser2', async (req, res) => {
+    // const resu = await Model.findPackage(req.body.PNUMBER);
+    Model.EditUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
+    res.render(path.join(__dirname + '/view/EditUser Form.html'));
+
+});
 app.post('/Editpackage2', async (req, res) => {
     // const resu = await Model.findPackage(req.body.PNUMBER);
     Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.redirect('/admin')
+});
+app.post('/editUser2', async (req, res) => {
+    // const resu = await Model.findPackage(req.body.PNUMBER);
+    Model.EditUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
+    console.log(req.body)
     res.redirect('/admin')
 });
 app.post('/adduser', (req, res) => {
@@ -194,13 +206,31 @@ app.post('/removeUser', (req, res) => {
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
 });
+app.post('/Editpackage', async (req, res) => {
+    const resu = await Model.findPackage(req.body.PNUMBER);
+    console.log(resu)
+    if (resu.length != 0) {
+        res.render(path.join(__dirname + '/view/editpackage2.html'), { resu });
+    } else {
+        res.redirect('/admin')
+    }
+});
+
 app.post('/editUser',async (req, res) => {
-    Model.EditUser(req.body.ID)
-    const arr = await Model.FindUser(req.body.ID)
-    console.log(arr)
-    // res.redirect('/admin/Edituser')
-    // // res.render(path.join(__dirname + '/view/admin.html'));
-    res.render(path.join(__dirname + '/view/Edit user.html'), { arr });
+//     Model.EditUser(req.body.ID)
+//     const arr = await Model.FindUser(req.body.ID)
+//     console.log(arr)
+//     // res.redirect('/admin/Edituser')
+//     // // res.render(path.join(__dirname + '/view/admin.html'));
+//     res.render(path.join(__dirname + '/view/Edit user.html'), { arr });
+// });
+    const resu = await Model.FindUser(req.body.ID);
+    console.log(resu)
+    if (resu.length != 0) {
+        res.render(path.join(__dirname + '/view/EditUser Form.html'), { resu });
+    } else {
+        res.redirect('/admin')
+    }
 });
 app.post('/FindUser',async(req, res) => {
     const arr = await Model.FindUser(req.body.ID)

@@ -8,17 +8,17 @@
 </head>
 <body>
 <h1>Edit user </h1>
-<form action="/FindUser" method="post">
+<form action="/editUser" method="post">
   <div>
-  Enter The user ID  <input type="text" id="ID" name="ID" required> <br>
-  <!-- Enter the Goverment ID <input type="text" id=" Goverment_ID" name="Goverment_ID" required><br>
-  Enter Name <input type="text" id="Type" name="Name" required><br> -->
-  <a href="/editeUserForm"><button >Submit</button></a>
-  </div>
+  Enter User ID <input type="number" id="id" name="ID" required> <br>
+  <!-- Enter Reciver_name <input type="text" id="Reciver_name" name="Reciver_name" required><br>
+  Enter Type <input type="text" id="Type" name="Type" required><br>
+  Enter status <input type="text" id="Status" name="Status" required><br>
+  Enter destination <input type="text" id="destination" name="destination" required><br> -->
   
-</form> 
-{% if arr.ID %}
-
-{% endif %}
+  <button>find</button>
+  <!-- <a href="packeged">Ship</a> -->
+  </div>
+</form>
 </body>
 </html>

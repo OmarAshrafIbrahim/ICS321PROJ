@@ -60,17 +60,7 @@ async function addShippedPackage(diaminsions, wight, finaldeliverydate, PNUMBER,
     }
 };
 
-async function EditPackage(PNUMBER, Reciver_name, Type, status, destination) {
-    const db = await getDbConnection();
-    const sql = `update Package SET destination = ? ,Type= ?, status = ? ,receiver__name = ? where PNUMBER = ?`;
-    try {
-        db.run(sql, [Reciver_name, Type, status, destination, PNUMBER]);
-        await db.close();
-    }
-    catch (error) {
-        console.log(error)
-    }
-};
+
 async function findPackage(PNUMBER) {
     const db = await getDbConnection();
     const sql = `select PNUMBER from Package where PNUMBER = ?`;
@@ -87,26 +77,13 @@ async function findPackage(PNUMBER) {
 async function addUser(ID, Goverment_ID, Name) {
     const db = await getDbConnection();
     const sql = `insert into Person(ID, Name, Goverment_ID) values (?,?,?)`;
-    db.run(sql, [ID, Name, Goverment_ID], function (error) {
+        db.run(sql, [ID, Name, Goverment_ID], function (error) {
         if (error) {
             console.error(error.message);
 
         }
         console.log(`Inserted a row with the PNUMBER: ${PNUMBER}`);
-    }
-};
-async function findPackage(PNUMBER) {
-    const db = await getDbConnection();
-    const sql = `select PNUMBER from Package where PNUMBER = ?`;
-    try {
-        const res = await db.all(sql, [PNUMBER]);
-        await db.close();
-        return res;
-    }
-    catch (error) {
-        console.log(error)
-    }
-    return res;
+    })
 };
 
 async function RemoveUser (ID) {
@@ -124,30 +101,50 @@ async function RemoveUser (ID) {
 };
 async function EditUser(ID, Goverment_ID, Name) {
     const db = await getDbConnection();
-    const sql = `update Package SET  Name = ? ,Goverment_ID = ? where ID = ?`;
+    const sql = `update Person SET  Name = ? ,Goverment_ID = ? where ID = ?`;
+    try {
+        db.run(sql, [ID, Goverment_ID, Name]);
+        await db.close();
 
-    db.run(sql, [ID, Goverment_ID, Name], function (error) {
-        if (error) {
-            console.error(error.message);
-        }
-        console.log(`Update the User Inforamation that has an ID : ${ID}`);
     }
-    );
-    await db.close();
+    catch (error) {
+        console.log(error)
+    }
 };
+async function EditPackage(PNUMBER, Reciver_name, Type, status, destination) {
+    const db = await getDbConnection();
+    const sql = `update Package SET destination = ? ,Type= ?, status = ? ,receiver__name = ? where PNUMBER = ?`;
+    try {
+        db.run(sql, [Reciver_name, Type, status, destination, PNUMBER]);
+        await db.close();
+    }
+    catch (error) {
+        console.log(error)
+    }
+};
+
 async function  FindUser (ID) {
     const db = await getDbConnection();
     const sql = `SELECT ID,Name,Goverment_ID FROM Person  where ID = ?`;
-
-    const result= await db.all(sql, [ID], function (error) {
-        if (error) {
-            console.error(error.message);
-        }
-        console.log(`Update the User Inforamation that has an ID : ${ID}`);
-    }
-    );
+//     const result= await db.all(sql, [ID], function (error) {
+//         if (error) {
+//             console.error(error.message);
+//         }
+//         console.log(`Update the User Inforamation that has an ID : ${ID}`);
+//     }
+//     );
+//     await db.close();
+//     return result;
+// };
+try {
+    const res = await db.all(sql, [ID]);
     await db.close();
-    return result;
+    return res;
+}
+catch (error) {
+    console.log(error)
+}
+return res;
 };
 
 async function Getconfomedpaymnts() {
