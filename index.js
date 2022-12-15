@@ -100,6 +100,11 @@ app.get("/tracebackpackage", async (req, res) => {
 
     res.render(path.join(__dirname + '/view/traceback package.html'));
 });
+app.get("/tracebackpackage", async (req, res) => {
+
+    res.render(path.join(__dirname + '/view/traceback package.html'));
+});
+
 
 app.post('/addpackage', (req, res) => {
 
@@ -121,6 +126,26 @@ app.post('/adduser', (req, res) => {
     Model.addUser(req.body.ID, req.body.Goverment_ID, req.body.Name)
     res.redirect('/admin')
     // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/removeUser', (req, res) => {
+    Model.RemoveUser(req.body.ID)
+    res.redirect('/admin')
+    // res.render(path.join(__dirname + '/view/admin.html'));
+});
+app.post('/editUser',async (req, res) => {
+    Model.EditUser(req.body.ID)
+    const arr = await Model.FindUser(req.body.ID)
+    console.log(arr)
+    // res.redirect('/admin/Edituser')
+    // // res.render(path.join(__dirname + '/view/admin.html'));
+    res.render(path.join(__dirname + '/view/Edit user.html'), { arr });
+});
+app.post('/FindUser',async(req, res) => {
+    const arr = await Model.FindUser(req.body.ID)
+    console.log(arr)
+    // res.redirect('/admin/Edituser')
+    // // res.render(path.join(__dirname + '/view/admin.html'));
+    res.render(path.join(__dirname + '/view/Edit user.html'), { arr });
 });
 app.listen(port, function () {
     console.log(`Server listening on port http://127.0.0.1:${port}!`);

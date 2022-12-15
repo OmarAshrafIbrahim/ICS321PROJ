@@ -75,8 +75,48 @@ async function addUser(ID, Goverment_ID, Name) {
     );
     await db.close();
 };
+async function RemoveUser (ID) {
+    const db = await getDbConnection();
+    const sql = `DELETE FROM Person WHERE ID = ?`;
+
+    db.run(sql, [ID], function (error) {
+        if (error) {
+            console.error(error.message);
+        }
+        console.log(`Delete the user that has an ID : ${ID} From the Pearson Table`);
+    }
+    );
+    await db.close();
+};
+async function EditUser(ID, Goverment_ID, Name) {
+    const db = await getDbConnection();
+    const sql = `update Package SET  Name = ? ,Goverment_ID = ? where ID = ?`;
+
+    db.run(sql, [ID, Goverment_ID, Name], function (error) {
+        if (error) {
+            console.error(error.message);
+        }
+        console.log(`Update the User Inforamation that has an ID : ${ID}`);
+    }
+    );
+    await db.close();
+};
+async function  FindUser (ID) {
+    const db = await getDbConnection();
+    const sql = `SELECT ID,Name,Goverment_ID FROM Person  where ID = ?`;
+
+    const result= await db.all(sql, [ID], function (error) {
+        if (error) {
+            console.error(error.message);
+        }
+        console.log(`Update the User Inforamation that has an ID : ${ID}`);
+    }
+    );
+    await db.close();
+    return result;
+};
 module.exports = {
-    addPackage,
-    addShippedPackage, RemovePackage, EditPackage, addUser
+    addPackage,EditUser,FindUser,
+    addShippedPackage, RemovePackage, EditPackage, addUser,RemoveUser
 
 };
