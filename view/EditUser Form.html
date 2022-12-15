@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edite User </title>
+</head>
+<body>
+    <h1> editing the information of user using the user ID  : {{resu[0].ID}} </h1>
+    <form action="/editUser2" method="post">
+        <div>
+        User ID  <input type="text" id="ID" name="ID" value = {{resu[0].ID}} readonly > <br>
+        Edit the Goverment ID <input type="number" id=" Goverment_ID" name="Goverment_ID" required><br>
+        Edit Name <input type="text" id="Type" name="Name" required><br>
+        Edit type <input type="text" id="Type" name="type" required><br>
+    Edit username <input type="text" placeholder="Username" name="username" id="Username" required>
+        edit passowrd <input type="password" placeholder="Enter Password" name="passowrd" id="psw" required>
+        <button>submit</button>
+        </div>
+      </form>
+    
+</body>
+</html>

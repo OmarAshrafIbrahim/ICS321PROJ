@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Edit user</title>
-</head>
-<body>
-<h1>Edit user </h1>
-<form action="/" method="post">
-  <div>
-  Enter The user name  <input type="text" id="Name"> <br>
-  Enter the Goverment ID <input type="text" id=" Goverment_ID"><br>
-  Enter Type <input type="text" id="Type"><br>
-  
-  <input type="submit" value="add">
-  <!-- <a href="packeged">Ship</a> -->
-  </div>
-</form>
-</body>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit user</title>
+  </head>
+
+  <body>
+    <h1>Edit user </h1>
+    <form action="/editUser" method="post">
+      <div>
+        Enter User ID <input type="number" id="id" name="ID" required> <br>
+        <!-- Enter Reciver_name <input type="text" id="Reciver_name" name="Reciver_name" required><br>
+  Enter Type <input type="text" id="Type" name="Type" required><br>
+  Enter status <input type="text" id="Status" name="Status" required><br>
+  Enter destination <input type="text" id="destination" name="destination" required><br> -->
+
+        <button>find</button>
+        <!-- <a href="packeged">Ship</a> -->
+      </div>
+    </form>
+  </body>
+
 </html>
