@@ -120,24 +120,24 @@ app.post('/removepackage', (req, res) => {
     // res.render(path.join(__dirname + '/view/admin.html'));
 });
 app.get('/Editpackage', async (req, res) => {
-   
+
     // Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
     // res.redirect('/admin')
     res.render(path.join(__dirname + '/view/edit package.html'));
 });
 app.post('/Editpackage', async (req, res) => {
     const resu = await Model.findPackage(req.body.PNUMBER);
-    if (resu.PNUMBER != '') {
-        console.log('1')
-        res.redirect('/Editpackage2')
+    console.log(resu)
+    if (resu.length != 0) {
+        res.render(path.join(__dirname + '/view/editpackage2.html'), { resu });
+    } else {
+        res.redirect('/admin')
     }
-    // Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
-    // res.redirect('/admin')
-    // res.render(path.join(__dirname + '/view/admin.html'));
 });
 app.get('/Editpackage2', async (req, res) => {
     // const resu = await Model.findPackage(req.body.PNUMBER);
     Model.EditPackage(req.body.PNUMBER, req.body.Reciver_name, req.body.Type, req.body.Status, req.body.destination)
+    res.render(path.join(__dirname + '/view/editpackage2.html'));
 
 });
 app.post('/Editpackage2', async (req, res) => {
